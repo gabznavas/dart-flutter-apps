@@ -59,7 +59,18 @@ class MyHomePage extends StatelessWidget {
                 _transactions.map((transaction) {
                   return Row(
                     children: [
-                      Container(child: Text(transaction.value.toString())),
+                      Container(
+                        // margin simétrico na horizon e vertical
+                        margin: EdgeInsets.symmetric(
+                          horizontal: 15,
+                          vertical: 10,
+                        ),
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.black, width: 2),
+                        ),
+                        padding: EdgeInsets.all(10),
+                        child: Text(transaction.value.toString()),
+                      ),
                       Column(
                         children: [
                           Text(transaction.title),
