@@ -1,5 +1,6 @@
 import 'package:expenses_flutter/transaction.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 void main() {
   runApp(ExpensesApp());
@@ -35,6 +36,7 @@ class MyHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    const String dateBrazilFormat = 'd MMM y';
     return Scaffold(
       appBar: AppBar(
         title: SizedBox(
@@ -92,7 +94,9 @@ class MyHomePage extends StatelessWidget {
                             ),
                           ),
                           Text(
-                            transaction.date.toString(),
+                            DateFormat(
+                              dateBrazilFormat,
+                            ).format(transaction.date),
                             style: TextStyle(color: Colors.grey),
                           ),
                         ],
