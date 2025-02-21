@@ -66,10 +66,20 @@ class MyHomePage extends StatelessWidget {
                           vertical: 10,
                         ),
                         decoration: BoxDecoration(
-                          border: Border.all(color: Colors.black, width: 2),
+                          border: Border.all(
+                            color: Colors.purple.shade300,
+                            width: 2,
+                          ),
                         ),
                         padding: EdgeInsets.all(10),
-                        child: Text(transaction.value.toString()),
+                        child: Text(
+                          transaction.value.toString(),
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                            color: Colors.purple,
+                          ),
+                        ),
                       ),
                       Column(
                         children: [
