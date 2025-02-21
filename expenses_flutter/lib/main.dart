@@ -18,6 +18,23 @@ class MyHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(child: Text('Versão inicial'));
+    return Scaffold(
+      appBar: AppBar(
+        title: SizedBox(
+          width: double.infinity,
+          child: Text('Despesas Pessoais!', textAlign: TextAlign.center),
+        ),
+      ),
+      body: Center(
+        child: Text(
+          'Versão inicial',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 25,
+            color: Colors.cyan,
+          ),
+        ),
+      ),
+    );
   }
 }
