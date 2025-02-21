@@ -25,15 +25,18 @@ class MyHomePage extends StatelessWidget {
           child: Text('Despesas Pessoais!', textAlign: TextAlign.center),
         ),
       ),
-      body: Center(
-        child: Text(
-          'Versão inicial',
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 25,
-            color: Colors.cyan,
+      body: Column(
+        children: [
+          SizedBox(
+            width: double.infinity,
+            child: Card(
+              color: Colors.blue,
+              elevation: 5,
+              child: Text('Gráfico'),
+            ),
           ),
-        ),
+          Card(child: Text('Lista de transações')),
+        ],
       ),
     );
   }
