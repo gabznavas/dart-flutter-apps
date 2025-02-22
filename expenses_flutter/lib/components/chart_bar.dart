@@ -14,14 +14,12 @@ class ChartBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final double heightBar = 60;
-    final double heightFactor = percentage / heightBar;
     return Column(
       children: [
-        Text(value.toStringAsFixed(2)),
+        FittedBox(child: Text(value.toStringAsFixed(2))),
         SizedBox(height: 5),
         SizedBox(
-          height: heightBar,
+          height: 60,
           width: 8,
           child: Stack(
             alignment: Alignment.bottomCenter,
@@ -34,7 +32,7 @@ class ChartBar extends StatelessWidget {
                 ),
               ),
               FractionallySizedBox(
-                heightFactor: heightFactor,
+                heightFactor: percentage,
                 child: Container(
                   decoration: BoxDecoration(
                     border: Border.all(color: Colors.grey, width: 1.0),

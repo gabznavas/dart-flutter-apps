@@ -56,10 +56,13 @@ class Chart extends StatelessWidget {
                 value,
                 weekTotalValue,
               );
-              return ChartBar(
-                label: name,
-                value: value,
-                percentage: percentage,
+              return Flexible(
+                fit: FlexFit.tight,
+                child: ChartBar(
+                  label: name,
+                  value: value,
+                  percentage: percentage,
+                ),
               );
             }).toList(),
       ),
@@ -67,7 +70,7 @@ class Chart extends StatelessWidget {
   }
 
   double calculatePercentage(double value, double totalValues) {
-    return value == 0 ? 0.0 : (value / totalValues) * 100;
+    return value == 0 ? 0.0 : (value / totalValues);
   }
 
   double getValueItem(Map<String, Object> item) {
