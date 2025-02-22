@@ -46,25 +46,28 @@ class Chart extends StatelessWidget {
     return Card(
       elevation: 6,
       margin: EdgeInsets.all(20),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children:
-            groupedTransactions.map((item) {
-              final String name = getNameItem(item);
-              final double value = getValueItem(item);
-              final double percentage = calculatePercentage(
-                value,
-                weekTotalValue,
-              );
-              return Flexible(
-                fit: FlexFit.tight,
-                child: ChartBar(
-                  label: name,
-                  value: value,
-                  percentage: percentage,
-                ),
-              );
-            }).toList(),
+      child: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children:
+              groupedTransactions.map((item) {
+                final String name = getNameItem(item);
+                final double value = getValueItem(item);
+                final double percentage = calculatePercentage(
+                  value,
+                  weekTotalValue,
+                );
+                return Flexible(
+                  fit: FlexFit.tight,
+                  child: ChartBar(
+                    label: name,
+                    value: value,
+                    percentage: percentage,
+                  ),
+                );
+              }).toList(),
+        ),
       ),
     );
   }
