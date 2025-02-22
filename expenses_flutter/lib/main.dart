@@ -23,6 +23,24 @@ class ExpensesApp extends StatelessWidget {
           backgroundColor: Colors.purple,
           foregroundColor: Colors.white,
         ),
+        fontFamily: 'Quicksand',
+        textTheme: ThemeData.light().textTheme.copyWith(
+          titleSmall: TextStyle(
+            fontFamily: 'Roboto',
+            fontSize: 15,
+            fontWeight: FontWeight.w400,
+          ),
+          titleMedium: TextStyle(
+            fontFamily: 'Roboto',
+            fontSize: 18,
+            fontWeight: FontWeight.w500,
+          ),
+          titleLarge: TextStyle(
+            fontFamily: 'Roboto',
+            fontSize: 20,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
         colorScheme: ColorScheme.fromSeed(
           seedColor: Colors.amber,
           primary: Colors.purple,
