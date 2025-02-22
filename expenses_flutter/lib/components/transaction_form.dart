@@ -49,18 +49,12 @@ class _TransactionFormState extends State<TransactionForm> {
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(elevation: 0),
                   onPressed: widget.onCancel,
-                  child: Text(
-                    'Cancelar',
-                    style: TextStyle(color: Colors.purple.shade500),
-                  ),
+                  child: Text('Cancelar'),
                 ),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(elevation: 0),
                   onPressed: _submitForm,
-                  child: Text(
-                    'Nova Transação',
-                    style: TextStyle(color: Colors.purple.shade500),
-                  ),
+                  child: Text('Nova Transação'),
                 ),
               ],
             ),
