@@ -34,15 +34,14 @@ class Chart extends StatelessWidget {
     });
   }
 
-  double sumValues() {
-    return recentTransaction
-        .map((item) => item.value)
-        .reduce((tot, value) => tot + value);
+  double _weekTotalValue() {
+    final double initFold = 0.0;
+    return recentTransaction.fold(initFold, (tot, item) => tot + item.value);
   }
 
   @override
   Widget build(BuildContext context) {
-    final totalValues = sumValues();
+    final weekTotalValue = _weekTotalValue();
 
     return Card(
       elevation: 6,
@@ -51,17 +50,31 @@ class Chart extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children:
             groupedTransactions.map((item) {
-              final name = item.cast()['day'];
-              final value =
-                  double.tryParse(item.cast()['value'].toString()) ?? 0.0;
-              final double percent = calculatePercet(value, totalValues);
-              return ChartBar(name, value, percent);
+              final String name = getNameItem(item);
+              final double value = getValueItem(item);
+              final double percentage = calculatePercentage(
+                value,
+                weekTotalValue,
+              );
+              return ChartBar(
+                label: name,
+                value: value,
+                percentage: percentage,
+              );
             }).toList(),
       ),
     );
   }
 
-  double calculatePercet(double value, double totalValues) {
+  double calculatePercentage(double value, double totalValues) {
     return value == 0 ? 0.0 : (value / totalValues) * 100;
+  }
+
+  double getValueItem(Map<String, Object> item) {
+    return double.tryParse(item.cast()['value'].toString()) ?? 0.0;
+  }
+
+  String getNameItem(Map<String, Object> item) {
+    return item.cast()['day'];
   }
 }
