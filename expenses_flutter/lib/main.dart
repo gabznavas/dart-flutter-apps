@@ -124,7 +124,7 @@ class _MyHomePageState extends State<MyHomePage> {
     showModalBottomSheet(
       context: context,
       builder: (_) {
-        return TransactionForm(_addTransaction, _cancelTransaction);
+        return TransactionForm(_addTransaction);
       },
     );
   }
@@ -135,7 +135,7 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: SizedBox(
           width: double.infinity,
-          child: Text('Despesas Pessoais!', textAlign: TextAlign.center),
+          child: Text('Despesas Pessoais', textAlign: TextAlign.center),
         ),
         actions: [
           IconButton(
@@ -158,7 +158,6 @@ class _MyHomePageState extends State<MyHomePage> {
         onPressed: () => _openTransactionFormModal(context),
         child: Icon(Icons.add),
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 }

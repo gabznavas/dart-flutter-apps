@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 
 class TransactionForm extends StatefulWidget {
   void Function(String title, double value) onSubmit;
-  void Function() onCancel;
 
-  TransactionForm(this.onSubmit, this.onCancel, {super.key});
+  TransactionForm(this.onSubmit, {super.key});
 
   @override
   State<TransactionForm> createState() => _TransactionFormState();
@@ -46,11 +45,6 @@ class _TransactionFormState extends State<TransactionForm> {
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(elevation: 0),
-                  onPressed: widget.onCancel,
-                  child: Text('Cancelar'),
-                ),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(elevation: 0),
                   onPressed: _submitForm,
