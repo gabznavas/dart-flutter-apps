@@ -51,7 +51,7 @@ class Chart extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children:
-              groupedTransactions.map((item) {
+              groupedTransactions.reversed.map((item) {
                 final String name = getNameItem(item);
                 final double value = getValueItem(item);
                 final double percentage = calculatePercentage(
