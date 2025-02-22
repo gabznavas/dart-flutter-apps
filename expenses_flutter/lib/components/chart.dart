@@ -54,11 +54,14 @@ class Chart extends StatelessWidget {
               final name = item.cast()['day'];
               final value =
                   double.tryParse(item.cast()['value'].toString()) ?? 0.0;
-              final double percent =
-                  value == 0 ? 0.0 : (value / totalValues) * 100;
+              final double percent = calculatePercet(value, totalValues);
               return ChartBar(name, value, percent);
             }).toList(),
       ),
     );
+  }
+
+  double calculatePercet(double value, double totalValues) {
+    return value == 0 ? 0.0 : (value / totalValues) * 100;
   }
 }
