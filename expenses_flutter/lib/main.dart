@@ -41,13 +41,18 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {
       _transactions.insert(0, newTransaction);
     });
+    _cancelTransaction();
+  }
+
+  void _cancelTransaction() {
+    Navigator.of(context).pop();
   }
 
   _openTransactionFormModal(BuildContext context) {
     showModalBottomSheet(
       context: context,
       builder: (_) {
-        return TransactionForm(_addTransaction, () {});
+        return TransactionForm(_addTransaction, _cancelTransaction);
       },
     );
   }
