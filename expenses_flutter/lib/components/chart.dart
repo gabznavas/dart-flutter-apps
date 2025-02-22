@@ -59,6 +59,7 @@ class Chart extends StatelessWidget {
                   weekTotalValue,
                 );
                 return Flexible(
+                  // todo os items terão o mesmo tamanho na row
                   fit: FlexFit.tight,
                   child: ChartBar(
                     label: name,

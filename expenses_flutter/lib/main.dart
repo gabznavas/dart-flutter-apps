@@ -27,17 +27,17 @@ class ExpensesApp extends StatelessWidget {
         textTheme: ThemeData.light().textTheme.copyWith(
           titleSmall: TextStyle(
             fontFamily: 'Roboto',
-            fontSize: 15,
-            fontWeight: FontWeight.w400,
+            fontSize: 12,
+            fontWeight: FontWeight.w300,
           ),
           titleMedium: TextStyle(
             fontFamily: 'Roboto',
-            fontSize: 18,
+            fontSize: 16,
             fontWeight: FontWeight.w500,
           ),
           titleLarge: TextStyle(
             fontFamily: 'Roboto',
-            fontSize: 20,
+            fontSize: 19,
             fontWeight: FontWeight.w700,
           ),
         ),
