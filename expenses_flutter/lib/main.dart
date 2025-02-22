@@ -1,6 +1,7 @@
-import 'package:expenses_flutter/transaction.dart';
+import 'package:expenses_flutter/components/transaction_form.dart';
+import 'package:expenses_flutter/components/transaction_list.dart';
+import 'package:expenses_flutter/models/transaction.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
 void main() {
   runApp(ExpensesApp());
@@ -32,14 +33,10 @@ class MyHomePage extends StatelessWidget {
     ),
   ];
 
-  final titleController = TextEditingController();
-  final valueController = TextEditingController();
-
   MyHomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    const String dateBrazilFormat = 'd MMM y';
     return Scaffold(
       appBar: AppBar(
         title: SizedBox(
@@ -57,92 +54,8 @@ class MyHomePage extends StatelessWidget {
               child: Text('Gráfico'),
             ),
           ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children:
-                _transactions.map((transaction) {
-                  return Row(
-                    children: [
-                      Container(
-                        // margin simétrico na horizon e vertical
-                        margin: EdgeInsets.symmetric(
-                          horizontal: 15,
-                          vertical: 10,
-                        ),
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            color: Colors.purple.shade300,
-                            width: 2,
-                          ),
-                        ),
-                        padding: EdgeInsets.all(10),
-                        child: Text(
-                          "R\$${transaction.value.toStringAsFixed(2)}",
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20,
-                            color: Colors.purple,
-                          ),
-                        ),
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            transaction.title,
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          Text(
-                            DateFormat(
-                              dateBrazilFormat,
-                            ).format(transaction.date),
-                            style: TextStyle(color: Colors.grey),
-                          ),
-                        ],
-                      ),
-                    ],
-                  );
-                }).toList(),
-          ),
-          Card(
-            elevation: 5,
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                children: [
-                  TextField(
-                    decoration: InputDecoration(labelText: 'Título'),
-                    controller: titleController,
-                    keyboardType: TextInputType.text,
-                  ),
-                  TextField(
-                    decoration: InputDecoration(labelText: 'Valor (R\$)'),
-                    controller: valueController,
-                    keyboardType: TextInputType.number,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(elevation: 0),
-                        onPressed: () {
-                          print(titleController.text);
-                          print(valueController.text);
-                        },
-                        child: Text(
-                          'Nova Transação',
-                          style: TextStyle(color: Colors.purple.shade500),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          ),
+          TransactionList(_transactions),
+          TransactionForm(),
         ],
       ),
     );
