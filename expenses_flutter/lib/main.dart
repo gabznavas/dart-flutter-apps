@@ -1,4 +1,8 @@
-import 'package:expenses_flutter/components/transaction_user.dart';
+import 'dart:math';
+
+import 'package:expenses_flutter/components/transaction_form.dart';
+import 'package:expenses_flutter/components/transaction_list.dart';
+import 'package:expenses_flutter/models/transaction.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -14,8 +18,100 @@ class ExpensesApp extends StatelessWidget {
   }
 }
 
-class MyHomePage extends StatelessWidget {
+class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
+
+  @override
+  State<MyHomePage> createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  final List<Transaction> _transactions = [
+    Transaction(id: 't1', title: 'Sorvete', value: 10, date: DateTime.now()),
+    Transaction(
+      id: 't2',
+      title: 'Conta #1',
+      value: 150.00,
+      date: DateTime.now(),
+    ),
+    Transaction(
+      id: 't3',
+      title: 'Conta #2',
+      value: 211.22,
+      date: DateTime.now(),
+    ),
+    Transaction(
+      id: 't3',
+      title: 'Conta #3',
+      value: 150.00,
+      date: DateTime.now(),
+    ),
+    Transaction(
+      id: 't4',
+      title: 'Conta #4',
+      value: 211.22,
+      date: DateTime.now(),
+    ),
+    Transaction(
+      id: 't5',
+      title: 'Conta #5',
+      value: 150.00,
+      date: DateTime.now(),
+    ),
+    Transaction(
+      id: 't6',
+      title: 'Conta #6',
+      value: 211.22,
+      date: DateTime.now(),
+    ),
+    Transaction(
+      id: 't5',
+      title: 'Conta #5',
+      value: 150.00,
+      date: DateTime.now(),
+    ),
+    Transaction(
+      id: 't6',
+      title: 'Conta #6',
+      value: 211.22,
+      date: DateTime.now(),
+    ),
+    Transaction(
+      id: 't5',
+      title: 'Conta #5',
+      value: 150.00,
+      date: DateTime.now(),
+    ),
+    Transaction(
+      id: 't6',
+      title: 'Conta #6',
+      value: 211.22,
+      date: DateTime.now(),
+    ),
+  ];
+
+  void _addTransaction(String title, double value) {
+    final newId =
+        Random().nextDouble().toString() + _transactions.length.toString();
+    final newTransaction = Transaction(
+      id: newId,
+      title: title,
+      value: value,
+      date: DateTime.now(),
+    );
+    setState(() {
+      _transactions.insert(0, newTransaction);
+    });
+  }
+
+  _openTransactionFormModal(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      builder: (_) {
+        return TransactionForm(_addTransaction, () {});
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +121,12 @@ class MyHomePage extends StatelessWidget {
           width: double.infinity,
           child: Text('Despesas Pessoais!', textAlign: TextAlign.center),
         ),
-        actions: [IconButton(onPressed: () {}, icon: Icon(Icons.add))],
+        actions: [
+          IconButton(
+            onPressed: () => _openTransactionFormModal(context),
+            icon: Icon(Icons.add),
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -38,14 +139,14 @@ class MyHomePage extends StatelessWidget {
                 child: Text('Gráfico'),
               ),
             ),
-            TransactionUser(),
+            TransactionList(_transactions),
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
         shape: CircleBorder(),
         backgroundColor: Colors.blue,
-        onPressed: () {},
+        onPressed: () => _openTransactionFormModal(context),
         child: Icon(Icons.add, color: Colors.white),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
