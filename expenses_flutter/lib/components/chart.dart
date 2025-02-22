@@ -6,6 +6,16 @@ import 'package:intl/intl.dart';
 class Chart extends StatelessWidget {
   List<Transaction> recentTransaction = [];
 
+  final Map<String, String> weekTranslatePtBr = {
+    "Sun": "Dom",
+    "Mon": "Seg",
+    "Tue": "Ter",
+    "Wed": "Qua",
+    "Thu": "Qui",
+    "Fri": "Sex",
+    "Sat": "Sab",
+  };
+
   Chart(this.recentTransaction, {super.key});
 
   // TODO: Criar uma classe em vez de usar map
@@ -17,7 +27,9 @@ class Chart extends StatelessWidget {
       final Duration subtractDay = Duration(days: index);
       final DateTime weekDay = today.subtract(subtractDay);
       final String weekDayName = DateFormat.E().format(weekDay);
-      final String weekDayNameFirstLetter = weekDayName[0];
+      final String threeLetters = weekDayName.substring(0, 3);
+      final String translatedFirstThreeLetters =
+          weekTranslatePtBr.cast()[threeLetters];
 
       double totalSum = 0.0;
 
@@ -30,7 +42,7 @@ class Chart extends StatelessWidget {
         }
       }
 
-      return {'day': weekDayNameFirstLetter, 'value': totalSum};
+      return {'day': translatedFirstThreeLetters, 'value': totalSum};
     });
   }
 
