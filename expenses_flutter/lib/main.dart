@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:expenses_flutter/components/chart.dart';
 import 'package:expenses_flutter/components/transaction_form.dart';
 import 'package:expenses_flutter/components/transaction_list.dart';
 import 'package:expenses_flutter/models/transaction.dart';
@@ -58,7 +59,47 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final List<Transaction> _transactions = [];
+  final List<Transaction> _transactions = [
+    Transaction(
+      id: 't1',
+      title: 'Carro',
+      value: 123.22,
+      date: DateTime.now().subtract(Duration(days: 0)),
+    ),
+    Transaction(
+      id: 't2',
+      title: 'Galinha',
+      value: 123.22,
+      date: DateTime.now().subtract(Duration(days: 1)),
+    ),
+    Transaction(
+      id: 't3',
+      title: 'Comida',
+      value: 123.22,
+      date: DateTime.now().subtract(Duration(days: 2)),
+    ),
+    Transaction(
+      id: 't4',
+      title: 'PC',
+      value: 123.22,
+      date: DateTime.now().subtract(Duration(days: 4)),
+    ),
+    Transaction(
+      id: 't5',
+      title: 'Caderno',
+      value: 123.22,
+      date: DateTime.now().subtract(Duration(days: 8)),
+    ),
+  ];
+
+  List<Transaction> get _recentTransactions {
+    final Duration sevenDaysDuration = Duration(days: 7);
+    final DateTime sevenDaysAgo = DateTime.now().subtract(sevenDaysDuration);
+    return _transactions.where((transaction) {
+      final bool isAfterLastSevenDays = transaction.date.isAfter(sevenDaysAgo);
+      return isAfterLastSevenDays;
+    }).toList();
+  }
 
   void _addTransaction(String title, double value) {
     final newId =
@@ -107,13 +148,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            SizedBox(
-              child: Card(
-                color: Colors.blue,
-                elevation: 5,
-                child: Text('Gráfico'),
-              ),
-            ),
+            Chart(_recentTransactions),
             TransactionList(_transactions),
           ],
         ),
