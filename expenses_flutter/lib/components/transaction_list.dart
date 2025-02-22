@@ -11,57 +11,51 @@ class TransactionList extends StatelessWidget {
   Widget build(BuildContext context) {
     const String dateBrazilFormat = 'd MMM y';
 
-    return Container(
+    return SizedBox(
       height: 400,
-      child: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children:
-              transactions.map((transaction) {
-                return Row(
+      child: ListView.builder(
+        itemCount: transactions.length,
+        itemBuilder: (ctx, index) {
+          final transaction = transactions[index];
+          return Card(
+            child: Row(
+              children: [
+                Container(
+                  // margin simétrico na horizon e vertical
+                  margin: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.purple.shade300, width: 2),
+                  ),
+                  padding: EdgeInsets.all(10),
+                  child: Text(
+                    "R\$${transaction.value.toStringAsFixed(2)}",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                      color: Colors.purple,
+                    ),
+                  ),
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Container(
-                      // margin simétrico na horizon e vertical
-                      margin: EdgeInsets.symmetric(
-                        horizontal: 15,
-                        vertical: 10,
-                      ),
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          color: Colors.purple.shade300,
-                          width: 2,
-                        ),
-                      ),
-                      padding: EdgeInsets.all(10),
-                      child: Text(
-                        "R\$${transaction.value.toStringAsFixed(2)}",
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
-                          color: Colors.purple,
-                        ),
+                    Text(
+                      transaction.title,
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          transaction.title,
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        Text(
-                          DateFormat(dateBrazilFormat).format(transaction.date),
-                          style: TextStyle(color: Colors.grey),
-                        ),
-                      ],
+                    Text(
+                      DateFormat(dateBrazilFormat).format(transaction.date),
+                      style: TextStyle(color: Colors.grey),
                     ),
                   ],
-                );
-              }).toList(),
-        ),
+                ),
+              ],
+            ),
+          );
+        },
       ),
     );
   }
