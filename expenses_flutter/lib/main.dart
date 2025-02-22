@@ -32,6 +32,9 @@ class MyHomePage extends StatelessWidget {
     ),
   ];
 
+  final titleController = TextEditingController();
+  final valueController = TextEditingController();
+
   MyHomePage({super.key});
 
   @override
@@ -110,16 +113,25 @@ class MyHomePage extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: Column(
                 children: [
-                  TextField(decoration: InputDecoration(labelText: 'Título')),
+                  TextField(
+                    decoration: InputDecoration(labelText: 'Título'),
+                    controller: titleController,
+                    keyboardType: TextInputType.text,
+                  ),
                   TextField(
                     decoration: InputDecoration(labelText: 'Valor (R\$)'),
+                    controller: valueController,
+                    keyboardType: TextInputType.number,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(elevation: 0),
-                        onPressed: () {},
+                        onPressed: () {
+                          print(titleController.text);
+                          print(valueController.text);
+                        },
                         child: Text(
                           'Nova Transação',
                           style: TextStyle(color: Colors.purple.shade500),
