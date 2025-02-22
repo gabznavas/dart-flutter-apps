@@ -2,7 +2,6 @@ import 'dart:math';
 
 import 'package:expenses_flutter/components/transaction_form.dart';
 import 'package:expenses_flutter/components/transaction_list.dart';
-import 'package:expenses_flutter/fake_data.dart';
 import 'package:expenses_flutter/models/transaction.dart';
 import 'package:flutter/material.dart';
 
@@ -59,7 +58,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final List<Transaction> _transactions = [...fakeTransactionsData];
+  final List<Transaction> _transactions = [];
 
   void _addTransaction(String title, double value) {
     final newId =
