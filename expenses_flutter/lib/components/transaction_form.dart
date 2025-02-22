@@ -4,7 +4,9 @@ class TransactionForm extends StatelessWidget {
   final titleController = TextEditingController();
   final valueController = TextEditingController();
 
-  TransactionForm({super.key});
+  void Function(String title, double value) onSubmit;
+
+  TransactionForm(this.onSubmit, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -30,8 +32,9 @@ class TransactionForm extends StatelessWidget {
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(elevation: 0),
                   onPressed: () {
-                    print(titleController.text);
-                    print(valueController.text);
+                    final title = titleController.text;
+                    final value = double.tryParse(valueController.text) ?? 0.0;
+                    onSubmit(title, value);
                   },
                   child: Text(
                     'Nova Transação',

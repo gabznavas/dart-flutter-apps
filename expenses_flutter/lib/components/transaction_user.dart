@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:expenses_flutter/components/transaction_form.dart';
 import 'package:expenses_flutter/components/transaction_list.dart';
 import 'package:expenses_flutter/models/transaction.dart';
@@ -30,7 +32,24 @@ class _TransactionUserState extends State<TransactionUser> {
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: [TransactionList(_transactions), TransactionForm()],
+      children: [
+        TransactionList(_transactions),
+        TransactionForm(_addTransaction),
+      ],
     );
+  }
+
+  void _addTransaction(String title, double value) {
+    final newId =
+        Random().nextDouble().toString() + _transactions.length.toString();
+    final newTransaction = Transaction(
+      id: newId,
+      title: title,
+      value: value,
+      date: DateTime.now(),
+    );
+    setState(() {
+      _transactions.add(newTransaction);
+    });
   }
 }
