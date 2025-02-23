@@ -68,10 +68,12 @@ class _TransactionFormState extends State<TransactionForm> {
               height: 75,
               child: Row(
                 children: [
-                  Text(
-                    _selectedDate == null
-                        ? 'Nenhuma data selecionada.'
-                        : 'Data selecionada: ${DateFormat(dateBrazilFormat).format(_selectedDate!)}',
+                  Expanded(
+                    child: Text(
+                      _selectedDate == null
+                          ? 'Nenhuma data selecionada.'
+                          : 'Data selecionada: ${DateFormat(dateBrazilFormat).format(_selectedDate!)}',
+                    ),
                   ),
                   SizedBox(width: 30),
                   ElevatedButton(
@@ -85,6 +87,7 @@ class _TransactionFormState extends State<TransactionForm> {
                           : 'Alterar data',
                     ),
                   ),
+                  SizedBox(width: 1),
                 ],
               ),
             ),
