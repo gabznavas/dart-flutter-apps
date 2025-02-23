@@ -116,6 +116,14 @@ class _MyHomePageState extends State<MyHomePage> {
     _cancelTransaction();
   }
 
+  void removeTransaction(String transactionId) {
+    setState(() {
+      _transactions.removeWhere(
+        (transaction) => transaction.id == transactionId,
+      );
+    });
+  }
+
   void _cancelTransaction() {
     Navigator.of(context).pop();
   }
@@ -149,7 +157,7 @@ class _MyHomePageState extends State<MyHomePage> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Chart(_recentTransactions),
-            TransactionList(_transactions),
+            TransactionList(_transactions, removeTransaction),
           ],
         ),
       ),
