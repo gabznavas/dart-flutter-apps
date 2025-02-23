@@ -101,14 +101,14 @@ class _MyHomePageState extends State<MyHomePage> {
     }).toList();
   }
 
-  void _addTransaction(String title, double value) {
+  void _addTransaction(String title, double value, DateTime date) {
     final newId =
         Random().nextDouble().toString() + _transactions.length.toString();
     final newTransaction = Transaction(
       id: newId,
       title: title,
       value: value,
-      date: DateTime.now(),
+      date: date,
     );
     setState(() {
       _transactions.insert(0, newTransaction);
