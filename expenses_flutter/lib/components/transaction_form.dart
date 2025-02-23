@@ -71,7 +71,7 @@ class _TransactionFormState extends State<TransactionForm> {
                   Text(
                     _selectedDate == null
                         ? 'Nenhuma data selecionada.'
-                        : DateFormat(dateBrazilFormat).format(_selectedDate!),
+                        : 'Data selecionada: ${DateFormat(dateBrazilFormat).format(_selectedDate!)}',
                   ),
                   SizedBox(width: 30),
                   ElevatedButton(
