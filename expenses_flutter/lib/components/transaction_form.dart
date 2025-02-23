@@ -13,15 +13,15 @@ class TransactionForm extends StatefulWidget {
 class _TransactionFormState extends State<TransactionForm> {
   final _titleController = TextEditingController();
   final _valueController = TextEditingController();
-  DateTime? _selectedDate;
+  DateTime _selectedDate = DateTime.now();
 
   void _submitForm() {
     final title = _titleController.text;
     final value = double.tryParse(_valueController.text) ?? 0.0;
-    if (title.isEmpty || value <= 0 || _selectedDate == null) {
+    if (title.isEmpty || value <= 0) {
       return;
     }
-    widget.onSubmit(title, value, _selectedDate!);
+    widget.onSubmit(title, value, _selectedDate);
   }
 
   void _showDatePicket() async {
@@ -70,9 +70,7 @@ class _TransactionFormState extends State<TransactionForm> {
                 children: [
                   Expanded(
                     child: Text(
-                      _selectedDate == null
-                          ? 'Nenhuma data selecionada.'
-                          : 'Data selecionada: ${DateFormat(dateBrazilFormat).format(_selectedDate!)}',
+                      'Data selecionada: ${DateFormat(dateBrazilFormat).format(_selectedDate)}',
                     ),
                   ),
                   SizedBox(width: 30),
@@ -81,11 +79,7 @@ class _TransactionFormState extends State<TransactionForm> {
                       backgroundColor: Theme.of(context).colorScheme.secondary,
                     ),
                     onPressed: _showDatePicket,
-                    child: Text(
-                      _selectedDate == null
-                          ? 'Selecionar data'
-                          : 'Alterar data',
-                    ),
+                    child: Text('Alterar data'),
                   ),
                   SizedBox(width: 1),
                 ],
