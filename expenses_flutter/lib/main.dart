@@ -113,7 +113,7 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {
       _transactions.insert(0, newTransaction);
     });
-    _cancelTransaction();
+    _closeLastScreen();
   }
 
   void removeTransaction(String transactionId) {
@@ -124,7 +124,7 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-  void _cancelTransaction() {
+  void _closeLastScreen() {
     Navigator.of(context).pop();
   }
 
