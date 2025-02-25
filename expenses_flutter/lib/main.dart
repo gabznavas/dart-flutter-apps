@@ -202,7 +202,12 @@ class _MyHomePageState extends State<MyHomePage> {
     final PreferredSizeWidget appBar = AppBar(
       title: SizedBox(
         width: double.infinity,
-        child: Text('Despesas Pessoais', textAlign: TextAlign.center),
+        child: Text(
+          'Despesas Pessoais',
+          style: TextStyle(
+            fontSize: 20 * MediaQuery.textScalerOf(context).scale(1),
+          ),
+        ),
       ),
       actions: [
         IconButton(
