@@ -5,6 +5,7 @@ import 'package:expenses_flutter/components/transaction_form.dart';
 import 'package:expenses_flutter/components/transaction_list.dart';
 import 'package:expenses_flutter/models/transaction.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 void main() {
   runApp(ExpensesApp());
@@ -199,6 +200,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    _configureDeviceOrientations();
+
     final PreferredSizeWidget appBar = AppBar(
       title: SizedBox(
         width: double.infinity,
@@ -239,6 +242,11 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Icon(Icons.add),
       ),
     );
+  }
+
+  void _configureDeviceOrientations() {
+    // sempre em pé!
+    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   }
 
   Widget _renderChart(BuildContext context, double availableHeight) {
