@@ -46,56 +46,66 @@ class _TransactionFormState extends State<TransactionForm> {
   Widget build(BuildContext context) {
     const String dateBrazilFormat = 'd/M/y';
 
-    return Card(
-      elevation: 5,
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          children: [
-            TextField(
-              decoration: InputDecoration(labelText: 'Título'),
-              controller: _titleController,
-              keyboardType: TextInputType.text,
-              onSubmitted: (_) => _submitForm(),
-            ),
-            TextField(
-              decoration: InputDecoration(labelText: 'Valor (R\$)'),
-              controller: _valueController,
-              keyboardType: TextInputType.numberWithOptions(decimal: true),
-              onSubmitted: (_) => _submitForm(),
-            ),
-            SizedBox(
-              height: 75,
-              child: Row(
+    final double keyboardHeight = MediaQuery.of(context).viewInsets.bottom;
+
+    return SingleChildScrollView(
+      child: Card(
+        elevation: 5,
+        child: Padding(
+          padding: EdgeInsets.only(
+            top: 10,
+            right: 10,
+            left: 10,
+            bottom: 10 + keyboardHeight,
+          ),
+          child: Column(
+            children: [
+              TextField(
+                decoration: InputDecoration(labelText: 'Título'),
+                controller: _titleController,
+                keyboardType: TextInputType.text,
+                onSubmitted: (_) => _submitForm(),
+              ),
+              TextField(
+                decoration: InputDecoration(labelText: 'Valor (R\$)'),
+                controller: _valueController,
+                keyboardType: TextInputType.numberWithOptions(decimal: true),
+                onSubmitted: (_) => _submitForm(),
+              ),
+              SizedBox(
+                height: 75,
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        'Data selecionada: ${DateFormat(dateBrazilFormat).format(_selectedDate)}',
+                      ),
+                    ),
+                    SizedBox(width: 30),
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor:
+                            Theme.of(context).colorScheme.secondary,
+                      ),
+                      onPressed: _showDatePicket,
+                      child: Text('Alterar data'),
+                    ),
+                    SizedBox(width: 1),
+                  ],
+                ),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  Expanded(
-                    child: Text(
-                      'Data selecionada: ${DateFormat(dateBrazilFormat).format(_selectedDate)}',
-                    ),
-                  ),
-                  SizedBox(width: 30),
                   ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Theme.of(context).colorScheme.secondary,
-                    ),
-                    onPressed: _showDatePicket,
-                    child: Text('Alterar data'),
+                    style: ElevatedButton.styleFrom(elevation: 0),
+                    onPressed: _submitForm,
+                    child: Text('Nova Transação'),
                   ),
-                  SizedBox(width: 1),
                 ],
               ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(elevation: 0),
-                  onPressed: _submitForm,
-                  child: Text('Nova Transação'),
-                ),
-              ],
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

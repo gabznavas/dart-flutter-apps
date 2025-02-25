@@ -137,6 +137,7 @@ class _MyHomePageState extends State<MyHomePage> {
     final availableHeight = screenHeight - statusBarHeight - appBarHeight;
 
     return Scaffold(
+      resizeToAvoidBottomInset: true, // Garante que o layout se ajuste
       appBar: appBar,
       body: SingleChildScrollView(
         child: Column(
