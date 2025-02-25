@@ -14,12 +14,16 @@ class ChartBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    /**
+     * builder ajuda a criar layout customizadas
+     * da altura e largura usando um contexto local
+     */
     return LayoutBuilder(
       builder: (BuildContext ctx, BoxConstraints constraints) {
-        final value = constraints.maxHeight * 0.11;
+        final value = constraints.maxHeight * 0.10;
         final separator = constraints.maxHeight * 0.05;
-        final bar = constraints.maxHeight * 0.62;
-        final label = constraints.maxHeight * 0.15;
+        final bar = constraints.maxHeight * 0.68;
+        final label = constraints.maxHeight * 0.12;
         return Column(
           children: [
             _renderValue(value),
@@ -44,8 +48,9 @@ class ChartBar extends StatelessWidget {
     return SizedBox(height: height);
   }
 
-  SizedBox _renderLabel(double height) =>
-      SizedBox(height: height, child: Text(label));
+  SizedBox _renderLabel(double height) {
+    return SizedBox(height: height, child: FittedBox(child: Text(label)));
+  }
 
   SizedBox _renderBar(BuildContext context, double height) {
     return SizedBox(
@@ -53,12 +58,12 @@ class ChartBar extends StatelessWidget {
       width: 10,
       child: Stack(
         alignment: Alignment.bottomCenter,
-        children: [_renderBarcandle(), _renderBackgroundBar(context)],
+        children: [_renderBackgroundBar(), _renderBarCandle(context)],
       ),
     );
   }
 
-  Container _renderBarcandle() {
+  Container _renderBackgroundBar() {
     return Container(
       decoration: BoxDecoration(
         border: Border.all(color: Colors.grey, width: 1.0),
@@ -68,12 +73,14 @@ class ChartBar extends StatelessWidget {
     );
   }
 
-  FractionallySizedBox _renderBackgroundBar(BuildContext context) {
+  FractionallySizedBox _renderBarCandle(BuildContext context) {
+    final showBorder = percentage > 0;
+    final double borderWidth = showBorder ? 1.0 : 0;
     return FractionallySizedBox(
       heightFactor: percentage,
       child: Container(
         decoration: BoxDecoration(
-          border: Border.all(color: Colors.grey, width: 1.0),
+          border: Border.all(color: Colors.grey, width: borderWidth),
           color: Theme.of(context).colorScheme.primary,
           borderRadius: BorderRadius.circular(5),
         ),
