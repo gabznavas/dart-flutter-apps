@@ -90,6 +90,66 @@ class _MyHomePageState extends State<MyHomePage> {
       value: 123.22,
       date: DateTime.now().subtract(Duration(days: 8)),
     ),
+    Transaction(
+      id: 't5',
+      title: 'Caderno',
+      value: 123.22,
+      date: DateTime.now().subtract(Duration(days: 8)),
+    ),
+    Transaction(
+      id: 't5',
+      title: 'Caderno',
+      value: 123.22,
+      date: DateTime.now().subtract(Duration(days: 8)),
+    ),
+    Transaction(
+      id: 't5',
+      title: 'Caderno',
+      value: 123.22,
+      date: DateTime.now().subtract(Duration(days: 8)),
+    ),
+    Transaction(
+      id: 't5',
+      title: 'Caderno',
+      value: 123.22,
+      date: DateTime.now().subtract(Duration(days: 8)),
+    ),
+    Transaction(
+      id: 't5',
+      title: 'Caderno',
+      value: 123.22,
+      date: DateTime.now().subtract(Duration(days: 8)),
+    ),
+    Transaction(
+      id: 't5',
+      title: 'Caderno',
+      value: 123.22,
+      date: DateTime.now().subtract(Duration(days: 8)),
+    ),
+    Transaction(
+      id: 't5',
+      title: 'Caderno',
+      value: 123.22,
+      date: DateTime.now().subtract(Duration(days: 8)),
+    ),
+    Transaction(
+      id: 't5',
+      title: 'Caderno',
+      value: 123.22,
+      date: DateTime.now().subtract(Duration(days: 8)),
+    ),
+    Transaction(
+      id: 't5',
+      title: 'Caderno',
+      value: 123.22,
+      date: DateTime.now().subtract(Duration(days: 8)),
+    ),
+    Transaction(
+      id: 't5',
+      title: 'Caderno',
+      value: 123.22,
+      date: DateTime.now().subtract(Duration(days: 8)),
+    ),
   ];
 
   List<Transaction> get _recentTransactions {
@@ -139,25 +199,32 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: SizedBox(
-          width: double.infinity,
-          child: Text('Despesas Pessoais', textAlign: TextAlign.center),
-        ),
-        actions: [
-          IconButton(
-            onPressed: () => _openTransactionFormModal(context),
-            icon: Icon(Icons.add),
-          ),
-        ],
+    final PreferredSizeWidget appBar = AppBar(
+      title: SizedBox(
+        width: double.infinity,
+        child: Text('Despesas Pessoais', textAlign: TextAlign.center),
       ),
+      actions: [
+        IconButton(
+          onPressed: () => _openTransactionFormModal(context),
+          icon: Icon(Icons.add),
+        ),
+      ],
+    );
+
+    final screenHeight = MediaQuery.of(context).size.height;
+    final statusBarHeight = MediaQuery.of(context).padding.top;
+    final appBarHeight = appBar.preferredSize.height;
+    final availableHeight = screenHeight - statusBarHeight - appBarHeight;
+
+    return Scaffold(
+      appBar: appBar,
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Chart(_recentTransactions),
-            TransactionList(_transactions, removeTransaction),
+            _renderChart(context, availableHeight),
+            _renderTransactionList(context, availableHeight),
           ],
         ),
       ),
@@ -166,6 +233,20 @@ class _MyHomePageState extends State<MyHomePage> {
         onPressed: () => _openTransactionFormModal(context),
         child: Icon(Icons.add),
       ),
+    );
+  }
+
+  Widget _renderChart(BuildContext context, double availableHeight) {
+    return SizedBox(
+      height: availableHeight * .25,
+      child: Chart(_recentTransactions),
+    );
+  }
+
+  Widget _renderTransactionList(BuildContext context, double availableHeight) {
+    return SizedBox(
+      height: availableHeight * .75,
+      child: TransactionList(_transactions, removeTransaction),
     );
   }
 }

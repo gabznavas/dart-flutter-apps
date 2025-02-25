@@ -11,13 +11,9 @@ class TransactionList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 400,
-      child:
-          transactions.isEmpty
-              ? _renderEmptyList(context)
-              : _renderList(context),
-    );
+    return transactions.isEmpty
+        ? _renderEmptyList(context)
+        : _renderList(context);
   }
 
   Column _renderEmptyList(BuildContext context) {
