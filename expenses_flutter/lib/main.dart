@@ -5,7 +5,6 @@ import 'package:expenses_flutter/components/transaction_form.dart';
 import 'package:expenses_flutter/components/transaction_list.dart';
 import 'package:expenses_flutter/models/transaction.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 void main() {
   runApp(ExpensesApp());
@@ -124,6 +123,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       actions: [
+        if (isLandscape) _renderSwitch(context),
         IconButton(
           onPressed: () => _openTransactionFormModal(context),
           icon: Icon(Icons.add),
@@ -142,7 +142,6 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            if (isLandscape) _renderSwitch(),
             if (_showChart || !isLandscape)
               _renderChart(context, availableHeight),
             if (!_showChart || !isLandscape)
@@ -158,13 +157,10 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  Row _renderSwitch() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Text(_showChart ? "Esconder gráfico" : "Mostrar Gráfico"),
-        Switch(value: _showChart, onChanged: onChangeShowChart),
-      ],
+  IconButton _renderSwitch(BuildContext context) {
+    return IconButton(
+      onPressed: onChangeShowChart,
+      icon: Icon(_showChart ? Icons.list : Icons.show_chart_sharp),
     );
   }
 
@@ -188,9 +184,9 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  void onChangeShowChart(bool value) {
+  void onChangeShowChart() {
     setState(() {
-      _showChart = value;
+      _showChart = !_showChart;
     });
   }
 }
