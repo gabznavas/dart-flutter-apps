@@ -60,7 +60,9 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   bool _showChart = false;
-  final List<Transaction> _transactions = [];
+  final List<Transaction> _transactions = [
+    Transaction(id: 't1', title: 'Lanche', value: 10, date: DateTime.now()),
+  ];
 
   List<Transaction> get _recentTransactions {
     final Duration sevenDaysDuration = Duration(days: 7);
