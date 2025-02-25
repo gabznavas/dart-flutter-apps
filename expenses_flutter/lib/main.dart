@@ -110,6 +110,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final bool isLandscape =
+        MediaQuery.of(context).orientation == Orientation.landscape;
+
     final PreferredSizeWidget appBar = AppBar(
       title: SizedBox(
         width: double.infinity,
@@ -139,16 +142,10 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(_showChart ? "Esconder gráfico" : "Mostrar Gráfico"),
-                Switch(value: _showChart, onChanged: onChangeShowChart),
-              ],
-            ),
-            if (_showChart)
-              _renderChart(context, availableHeight)
-            else
+            if (isLandscape) _renderSwitch(),
+            if (_showChart || !isLandscape)
+              _renderChart(context, availableHeight),
+            if (!_showChart || !isLandscape)
               _renderTransactionList(context, availableHeight),
           ],
         ),
@@ -161,16 +158,32 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
+  Row _renderSwitch() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text(_showChart ? "Esconder gráfico" : "Mostrar Gráfico"),
+        Switch(value: _showChart, onChanged: onChangeShowChart),
+      ],
+    );
+  }
+
   Widget _renderChart(BuildContext context, double availableHeight) {
+    final bool isLandscape =
+        MediaQuery.of(context).orientation == Orientation.landscape;
+
     return SizedBox(
-      height: availableHeight * .25,
+      height: isLandscape ? availableHeight * .7 : availableHeight * .25,
       child: Chart(_recentTransactions),
     );
   }
 
   Widget _renderTransactionList(BuildContext context, double availableHeight) {
+    final bool isLandscape =
+        MediaQuery.of(context).orientation == Orientation.landscape;
+
     return SizedBox(
-      height: availableHeight * .75,
+      height: isLandscape ? availableHeight * .85 : availableHeight * .75,
       child: TransactionList(_transactions, removeTransaction),
     );
   }

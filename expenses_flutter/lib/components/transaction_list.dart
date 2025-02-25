@@ -20,8 +20,7 @@ class TransactionList extends StatelessWidget {
     return LayoutBuilder(
       builder: (BuildContext ctx, BoxConstraints constrains) {
         final double titleHeight = constrains.maxHeight * 0.10;
-        final double spaceHight = constrains.maxHeight * 0.10;
-        final double imageHeight = constrains.maxHeight * 0.60;
+        final double imageHeight = constrains.maxHeight * 0.75;
         return Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -32,7 +31,6 @@ class TransactionList extends StatelessWidget {
                 style: Theme.of(context).textTheme.titleMedium,
               ),
             ),
-            SizedBox(height: spaceHight),
             SizedBox(
               height: imageHeight,
               child: Image.asset(
