@@ -60,9 +60,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   bool _showChart = false;
-  final List<Transaction> _transactions = [
-    Transaction(id: 't1', title: 'Lanche', value: 10, date: DateTime.now()),
-  ];
+  final List<Transaction> _transactions = [];
 
   List<Transaction> get _recentTransactions {
     final Duration sevenDaysDuration = Duration(days: 7);
@@ -182,7 +180,7 @@ class _MyHomePageState extends State<MyHomePage> {
         MediaQuery.of(context).orientation == Orientation.landscape;
 
     return SizedBox(
-      height: isLandscape ? availableHeight * .85 : availableHeight * .75,
+      height: isLandscape ? availableHeight * 1 : availableHeight * .75,
       child: TransactionList(_transactions, removeTransaction),
     );
   }
