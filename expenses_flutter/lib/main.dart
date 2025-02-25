@@ -60,98 +60,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final List<Transaction> _transactions = [
-    Transaction(
-      id: 't1',
-      title: 'Carro',
-      value: 123.22,
-      date: DateTime.now().subtract(Duration(days: 0)),
-    ),
-    Transaction(
-      id: 't2',
-      title: 'Galinha',
-      value: 123.22,
-      date: DateTime.now().subtract(Duration(days: 1)),
-    ),
-    Transaction(
-      id: 't3',
-      title: 'Comida',
-      value: 123.22,
-      date: DateTime.now().subtract(Duration(days: 2)),
-    ),
-    Transaction(
-      id: 't4',
-      title: 'PC',
-      value: 123.22,
-      date: DateTime.now().subtract(Duration(days: 4)),
-    ),
-    Transaction(
-      id: 't5',
-      title: 'Caderno',
-      value: 123.22,
-      date: DateTime.now().subtract(Duration(days: 8)),
-    ),
-    Transaction(
-      id: 't5',
-      title: 'Caderno',
-      value: 123.22,
-      date: DateTime.now().subtract(Duration(days: 8)),
-    ),
-    Transaction(
-      id: 't5',
-      title: 'Caderno',
-      value: 123.22,
-      date: DateTime.now().subtract(Duration(days: 8)),
-    ),
-    Transaction(
-      id: 't5',
-      title: 'Caderno',
-      value: 123.22,
-      date: DateTime.now().subtract(Duration(days: 8)),
-    ),
-    Transaction(
-      id: 't5',
-      title: 'Caderno',
-      value: 123.22,
-      date: DateTime.now().subtract(Duration(days: 8)),
-    ),
-    Transaction(
-      id: 't5',
-      title: 'Caderno',
-      value: 123.22,
-      date: DateTime.now().subtract(Duration(days: 8)),
-    ),
-    Transaction(
-      id: 't5',
-      title: 'Caderno',
-      value: 123.22,
-      date: DateTime.now().subtract(Duration(days: 8)),
-    ),
-    Transaction(
-      id: 't5',
-      title: 'Caderno',
-      value: 123.22,
-      date: DateTime.now().subtract(Duration(days: 8)),
-    ),
-    Transaction(
-      id: 't5',
-      title: 'Caderno',
-      value: 123.22,
-      date: DateTime.now().subtract(Duration(days: 8)),
-    ),
-    Transaction(
-      id: 't5',
-      title: 'Caderno',
-      value: 123.22,
-      date: DateTime.now().subtract(Duration(days: 8)),
-    ),
-    Transaction(
-      id: 't5',
-      title: 'Caderno',
-      value: 123.22,
-      date: DateTime.now().subtract(Duration(days: 8)),
-    ),
-  ];
+  bool _showChart = false;
+  final List<Transaction> _transactions = [];
 
   List<Transaction> get _recentTransactions {
     final Duration sevenDaysDuration = Duration(days: 7);
@@ -200,8 +110,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    _configureDeviceOrientations();
-
     final PreferredSizeWidget appBar = AppBar(
       title: SizedBox(
         width: double.infinity,
@@ -231,8 +139,17 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            _renderChart(context, availableHeight),
-            _renderTransactionList(context, availableHeight),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(_showChart ? "Esconder gráfico" : "Mostrar Gráfico"),
+                Switch(value: _showChart, onChanged: onChangeShowChart),
+              ],
+            ),
+            if (_showChart)
+              _renderChart(context, availableHeight)
+            else
+              _renderTransactionList(context, availableHeight),
           ],
         ),
       ),
@@ -242,11 +159,6 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Icon(Icons.add),
       ),
     );
-  }
-
-  void _configureDeviceOrientations() {
-    // sempre em pé!
-    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   }
 
   Widget _renderChart(BuildContext context, double availableHeight) {
@@ -261,5 +173,11 @@ class _MyHomePageState extends State<MyHomePage> {
       height: availableHeight * .75,
       child: TransactionList(_transactions, removeTransaction),
     );
+  }
+
+  void onChangeShowChart(bool value) {
+    setState(() {
+      _showChart = value;
+    });
   }
 }

@@ -16,20 +16,33 @@ class TransactionList extends StatelessWidget {
         : _renderList(context);
   }
 
-  Column _renderEmptyList(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Text(
-          'Nenhuma Transação cadastrada',
-          style: Theme.of(context).textTheme.titleMedium,
-        ),
-        SizedBox(height: 20),
-        SizedBox(
-          height: 200,
-          child: Image.asset('assets/images/waiting.png', fit: BoxFit.cover),
-        ),
-      ],
+  LayoutBuilder _renderEmptyList(BuildContext context) {
+    return LayoutBuilder(
+      builder: (BuildContext ctx, BoxConstraints constrains) {
+        final double titleHeight = constrains.maxHeight * 0.10;
+        final double spaceHight = constrains.maxHeight * 0.10;
+        final double imageHeight = constrains.maxHeight * 0.60;
+        return Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SizedBox(
+              height: titleHeight,
+              child: Text(
+                'Nenhuma Transação cadastrada',
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
+            ),
+            SizedBox(height: spaceHight),
+            SizedBox(
+              height: imageHeight,
+              child: Image.asset(
+                'assets/images/waiting.png',
+                fit: BoxFit.cover,
+              ),
+            ),
+          ],
+        );
+      },
     );
   }
 
