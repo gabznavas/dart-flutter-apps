@@ -16,35 +16,40 @@ class ChartBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (BuildContext ctx, BoxConstraints constraints) {
+        final value = constraints.maxHeight * 0.11;
+        final separator = constraints.maxHeight * 0.05;
+        final bar = constraints.maxHeight * 0.62;
+        final label = constraints.maxHeight * 0.15;
         return Column(
           children: [
-            _renderValue(),
-            _renderSeparator(constraints),
-            _renderBar(constraints, context),
-            _renderSeparator(constraints),
-            _renderLabel(),
+            _renderValue(value),
+            _renderSeparator(separator),
+            _renderBar(context, bar),
+            _renderSeparator(separator),
+            _renderLabel(label),
           ],
         );
       },
     );
   }
 
-  SizedBox _renderSeparator(BoxConstraints constraints) {
-    return SizedBox(height: constraints.maxHeight * 0.05);
-  }
-
-  Text _renderLabel() => Text(label);
-
-  SizedBox _renderValue() {
+  SizedBox _renderValue(double height) {
     return SizedBox(
-      height: 15,
+      height: height,
       child: FittedBox(child: Text(value.toStringAsFixed(2))),
     );
   }
 
-  SizedBox _renderBar(BoxConstraints constraints, BuildContext context) {
+  SizedBox _renderSeparator(double height) {
+    return SizedBox(height: height);
+  }
+
+  SizedBox _renderLabel(double height) =>
+      SizedBox(height: height, child: Text(label));
+
+  SizedBox _renderBar(BuildContext context, double height) {
     return SizedBox(
-      height: constraints.maxHeight * 0.55,
+      height: height,
       width: 10,
       child: Stack(
         alignment: Alignment.bottomCenter,
