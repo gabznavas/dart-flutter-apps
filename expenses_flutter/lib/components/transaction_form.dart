@@ -45,8 +45,8 @@ class _TransactionFormState extends State<TransactionForm> {
   @override
   Widget build(BuildContext context) {
     const String dateBrazilFormat = 'd/M/y';
-
-    final double keyboardHeight = MediaQuery.of(context).viewInsets.bottom;
+    final MediaQueryData mediaQuery = MediaQuery.of(context);
+    final double keyboardHeight = mediaQuery.viewInsets.bottom;
 
     return SingleChildScrollView(
       child: Card(

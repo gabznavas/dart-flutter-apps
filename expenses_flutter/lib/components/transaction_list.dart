@@ -17,6 +17,8 @@ class TransactionList extends StatelessWidget {
   }
 
   LayoutBuilder _renderEmptyList(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
+
     return LayoutBuilder(
       builder: (BuildContext ctx, BoxConstraints constrains) {
         final double titleHeight = constrains.maxHeight * 0.10;
@@ -28,7 +30,7 @@ class TransactionList extends StatelessWidget {
               height: titleHeight,
               child: Text(
                 'Nenhuma Transação cadastrada',
-                style: Theme.of(context).textTheme.titleMedium,
+                style: theme.textTheme.titleMedium,
               ),
             ),
             SizedBox(
@@ -47,6 +49,9 @@ class TransactionList extends StatelessWidget {
   ListView _renderList(BuildContext context) {
     const String dateBrazilFormat = 'd MMM y';
 
+    final MediaQueryData mediaQuery = MediaQuery.of(context);
+    final ThemeData theme = Theme.of(context);
+
     return ListView.builder(
       itemCount: transactions.length,
       itemBuilder: (ctx, index) {
@@ -64,16 +69,13 @@ class TransactionList extends StatelessWidget {
                 ),
               ),
             ),
-            title: Text(
-              transaction.title,
-              style: Theme.of(context).textTheme.titleMedium,
-            ),
+            title: Text(transaction.title, style: theme.textTheme.titleMedium),
             subtitle: Text(
               DateFormat(dateBrazilFormat).format(transaction.date),
-              style: Theme.of(context).textTheme.titleSmall,
+              style: theme.textTheme.titleSmall,
             ),
             trailing:
-                MediaQuery.of(context).size.width > 450
+                mediaQuery.size.width > 450
                     ? TextButton(
                       onPressed: () => onRemove(transaction.id),
                       child: Column(
@@ -81,24 +83,16 @@ class TransactionList extends StatelessWidget {
                           Flexible(
                             child: Text(
                               "Excluir",
-                              style: TextStyle(
-                                color: Theme.of(context).colorScheme.error,
-                              ),
+                              style: TextStyle(color: theme.colorScheme.error),
                             ),
                           ),
-                          Icon(
-                            Icons.delete,
-                            color: Theme.of(context).colorScheme.error,
-                          ),
+                          Icon(Icons.delete, color: theme.colorScheme.error),
                         ],
                       ),
                     )
                     : IconButton(
                       onPressed: () => onRemove(transaction.id),
-                      icon: Icon(
-                        Icons.delete,
-                        color: Theme.of(context).colorScheme.error,
-                      ),
+                      icon: Icon(Icons.delete, color: theme.colorScheme.error),
                     ),
           ),
         );

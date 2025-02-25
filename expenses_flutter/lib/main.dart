@@ -60,7 +60,23 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   bool _showChart = false;
-  final List<Transaction> _transactions = [];
+  final List<Transaction> _transactions = [
+    Transaction(id: 't1', title: 'Lanche', value: 10, date: DateTime.now()),
+    Transaction(id: 't1', title: 'Lanche', value: 10, date: DateTime.now()),
+    Transaction(id: 't1', title: 'Lanche', value: 10, date: DateTime.now()),
+    Transaction(id: 't1', title: 'Lanche', value: 10, date: DateTime.now()),
+    Transaction(id: 't1', title: 'Lanche', value: 10, date: DateTime.now()),
+    Transaction(id: 't1', title: 'Lanche', value: 10, date: DateTime.now()),
+    Transaction(id: 't1', title: 'Lanche', value: 10, date: DateTime.now()),
+    Transaction(id: 't1', title: 'Lanche', value: 10, date: DateTime.now()),
+    Transaction(id: 't1', title: 'Lanche', value: 10, date: DateTime.now()),
+    Transaction(id: 't1', title: 'Lanche', value: 10, date: DateTime.now()),
+    Transaction(id: 't1', title: 'Lanche', value: 10, date: DateTime.now()),
+    Transaction(id: 't1', title: 'Lanche', value: 10, date: DateTime.now()),
+    Transaction(id: 't1', title: 'Lanche', value: 10, date: DateTime.now()),
+    Transaction(id: 't1', title: 'Lanche', value: 10, date: DateTime.now()),
+    Transaction(id: 't1', title: 'Lanche', value: 10, date: DateTime.now()),
+  ];
 
   List<Transaction> get _recentTransactions {
     final Duration sevenDaysDuration = Duration(days: 7);
@@ -109,8 +125,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    final bool isLandscape =
-        MediaQuery.of(context).orientation == Orientation.landscape;
+    final MediaQueryData mediaQuery = MediaQuery.of(context);
+    final bool isLandscape = mediaQuery.orientation == Orientation.landscape;
 
     final PreferredSizeWidget appBar = AppBar(
       title: SizedBox(
@@ -131,8 +147,8 @@ class _MyHomePageState extends State<MyHomePage> {
       ],
     );
 
-    final screenHeight = MediaQuery.of(context).size.height;
-    final statusBarHeight = MediaQuery.of(context).padding.top;
+    final screenHeight = mediaQuery.size.height;
+    final statusBarHeight = mediaQuery.padding.top;
     final appBarHeight = appBar.preferredSize.height;
     final availableHeight = screenHeight - statusBarHeight - appBarHeight;
 
@@ -166,8 +182,8 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Widget _renderChart(BuildContext context, double availableHeight) {
-    final bool isLandscape =
-        MediaQuery.of(context).orientation == Orientation.landscape;
+    final MediaQueryData mediaQuery = MediaQuery.of(context);
+    final bool isLandscape = mediaQuery.orientation == Orientation.landscape;
 
     return SizedBox(
       height: isLandscape ? availableHeight * .7 : availableHeight * .25,
@@ -176,8 +192,8 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Widget _renderTransactionList(BuildContext context, double availableHeight) {
-    final bool isLandscape =
-        MediaQuery.of(context).orientation == Orientation.landscape;
+    final MediaQueryData mediaQuery = MediaQuery.of(context);
+    final bool isLandscape = mediaQuery.orientation == Orientation.landscape;
 
     return SizedBox(
       height: isLandscape ? availableHeight * 1 : availableHeight * .75,
