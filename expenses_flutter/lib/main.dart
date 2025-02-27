@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:math';
 
 import 'package:expenses_flutter/components/chart.dart';
@@ -94,10 +95,11 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       actions: [
         if (isLandscape) _renderSwitch(context),
+        Platform.isIOS ?
         IconButton(
           onPressed: () => _openTransactionFormModal(context),
           icon: Icon(Icons.add),
-        ),
+        ) : Container(),
       ],
     );
 
@@ -113,6 +115,18 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center
+              ,children: [
+              Text("Exibir Gráfico"),
+              Switch.adaptive(
+                  activeColor: Theme.of(context).colorScheme.secondary,
+                  value: _showChart, onChanged: (value) {
+                setState(() {
+                  _showChart = value;
+                });
+              })
+            ],),
             if (_showChart || !isLandscape)
               _renderChart(context, availableHeight),
             if (!_showChart || !isLandscape)
@@ -120,7 +134,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: Platform.isIOS ? Container() : FloatingActionButton(
         shape: CircleBorder(),
         onPressed: () => _openTransactionFormModal(context),
         child: Icon(Icons.add),
