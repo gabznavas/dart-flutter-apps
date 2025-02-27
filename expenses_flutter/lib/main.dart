@@ -103,37 +103,12 @@ class _MyHomePageState extends State<MyHomePage> {
       ],
     );
 
-    final screenHeight = mediaQuery.size.height;
-    final statusBarHeight = mediaQuery.padding.top;
-    final appBarHeight = appBar.preferredSize.height;
-    final availableHeight = screenHeight - statusBarHeight - appBarHeight;
+
 
     return Scaffold(
       resizeToAvoidBottomInset: true, // Garante que o layout se ajuste
       appBar: appBar,
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center
-              ,children: [
-              Text("Exibir Gráfico"),
-              Switch.adaptive(
-                  activeColor: Theme.of(context).colorScheme.secondary,
-                  value: _showChart, onChanged: (value) {
-                setState(() {
-                  _showChart = value;
-                });
-              })
-            ],),
-            if (_showChart || !isLandscape)
-              _renderChart(context, availableHeight),
-            if (!_showChart || !isLandscape)
-              _renderTransactionList(context, availableHeight),
-          ],
-        ),
-      ),
+      body: _renderBody(context, isLandscape, appBar),
       floatingActionButton: Platform.isIOS ? Container() : FloatingActionButton(
         shape: CircleBorder(),
         onPressed: () => _openTransactionFormModal(context),
@@ -142,11 +117,20 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  IconButton _renderSwitch(BuildContext context) {
-    return IconButton(
-      onPressed: onChangeShowChart,
-      icon: Icon(_showChart ? Icons.list : Icons.show_chart_sharp),
-    );
+  Row _renderSwitch(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center
+      ,children: [
+      Text("Exibir Gráfico"),
+      Switch.adaptive(
+          activeColor: Theme.of(context).colorScheme.secondary,
+          value: _showChart,
+          onChanged: (value) {
+          setState(() {
+            _showChart = value;
+          });
+      })
+    ],);
   }
 
   Widget _renderChart(BuildContext context, double availableHeight) {
@@ -173,5 +157,26 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {
       _showChart = !_showChart;
     });
+  }
+
+  SingleChildScrollView _renderBody(BuildContext context, bool isLandscape, PreferredSizeWidget appBar) {
+    final MediaQueryData mediaQuery = MediaQuery.of(context);
+    final screenHeight = mediaQuery.size.height;
+    final statusBarHeight = mediaQuery.padding.top;
+    final appBarHeight = appBar.preferredSize.height;
+    final availableHeight = screenHeight - statusBarHeight - appBarHeight;
+
+    return SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          // if(isLandscape) _renderSwitch(context),
+          if (_showChart || !isLandscape)
+            _renderChart(context, availableHeight),
+          if (!_showChart || !isLandscape)
+            _renderTransactionList(context, availableHeight),
+        ],
+      ),
+    );
   }
 }
