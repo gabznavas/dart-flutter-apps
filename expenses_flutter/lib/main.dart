@@ -7,6 +7,7 @@ import 'package:expenses_flutter/components/transaction_list.dart';
 import 'package:expenses_flutter/fake_data.dart';
 import 'package:expenses_flutter/models/transaction.dart';
 import 'package:expenses_flutter/theme.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -83,27 +84,7 @@ class _MyHomePageState extends State<MyHomePage> {
     final MediaQueryData mediaQuery = MediaQuery.of(context);
     final bool isLandscape = mediaQuery.orientation == Orientation.landscape;
 
-    final PreferredSizeWidget appBar = AppBar(
-      title: SizedBox(
-        width: double.infinity,
-        child: Text(
-          'Despesas Pessoais',
-          style: TextStyle(
-            fontSize: 20 * MediaQuery.textScalerOf(context).scale(1),
-          ),
-        ),
-      ),
-      actions: [
-        if (isLandscape) _renderSwitch(context),
-        Platform.isIOS ?
-        IconButton(
-          onPressed: () => _openTransactionFormModal(context),
-          icon: Icon(Icons.add),
-        ) : Container(),
-      ],
-    );
-
-
+    final PreferredSizeWidget appBar = _renderAppBar(context, isLandscape);
 
     return Scaffold(
       resizeToAvoidBottomInset: true, // Garante que o layout se ajuste
@@ -159,24 +140,56 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-  SingleChildScrollView _renderBody(BuildContext context, bool isLandscape, PreferredSizeWidget appBar) {
+  SafeArea _renderBody(BuildContext context, bool isLandscape, PreferredSizeWidget appBar) {
     final MediaQueryData mediaQuery = MediaQuery.of(context);
     final screenHeight = mediaQuery.size.height;
     final statusBarHeight = mediaQuery.padding.top;
     final appBarHeight = appBar.preferredSize.height;
     final availableHeight = screenHeight - statusBarHeight - appBarHeight;
 
-    return SingleChildScrollView(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          // if(isLandscape) _renderSwitch(context),
-          if (_showChart || !isLandscape)
-            _renderChart(context, availableHeight),
-          if (!_showChart || !isLandscape)
-            _renderTransactionList(context, availableHeight),
-        ],
+    return SafeArea(
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            // if(isLandscape) _renderSwitch(context),
+            if (_showChart || !isLandscape)
+              _renderChart(context, availableHeight),
+            if (!_showChart || !isLandscape)
+              _renderTransactionList(context, availableHeight),
+          ],
+        ),
       ),
+    );
+  }
+
+  PreferredSizeWidget _renderAppBar(BuildContext context, bool isLandscape) {
+    final iconListIcon = Platform.isIOS ? CupertinoIcons.refresh : Icons.list;
+    final showCartIcon = Platform.isIOS ? CupertinoIcons.refresh : Icons.show_chart;
+    return AppBar(
+      title: SizedBox(
+        width: double.infinity,
+        child: Text(
+          'Despesas Pessoais',
+          style: TextStyle(
+            fontSize: 20 * MediaQuery.textScalerOf(context).scale(1),
+          ),
+        ),
+      ),
+      actions: [
+        // if (isLandscape) _renderSwitch(context),
+        if(isLandscape)
+          IconButton(onPressed: () {
+            setState(() {
+              _showChart = !_showChart;
+            });
+          }, icon: Icon(_showChart ? iconListIcon : showCartIcon),),
+        Platform.isIOS ?
+        IconButton(
+          onPressed: () => _openTransactionFormModal(context),
+          icon: Icon(Icons.add),
+        ) : Container(),
+      ],
     );
   }
 }
