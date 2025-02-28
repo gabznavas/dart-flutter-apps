@@ -1,18 +1,31 @@
 import 'package:flutter/material.dart';
+import 'package:meals/components/category_item.dart';
+import 'package:meals/data/dummy_data.dart';
+import 'package:meals/models/category.dart';
 
 class CategoryScreen extends StatelessWidget {
-  const CategoryScreen({super.key});
+  final List<Category> categories = [...DUMMY_CATEGORIES];
+
+  CategoryScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return GridView(
-      gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-        maxCrossAxisExtent: 200,
-        childAspectRatio: 3 / 2,
-        crossAxisSpacing: 20,
-        mainAxisExtent: 20,
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Vamos cozinhar?", style: TextStyle(color: Colors.white)),
+        backgroundColor: Colors.blue,
+        centerTitle: true,
       ),
-      children: [],
+      body: GridView(
+        padding: EdgeInsets.all(15),
+        gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+          maxCrossAxisExtent: 200,
+          childAspectRatio: 3 / 2,
+          crossAxisSpacing: 20,
+          mainAxisSpacing: 20,
+        ),
+        children: categories.map((category) => CategoryItem(category)).toList(),
+      ),
     );
   }
 }
