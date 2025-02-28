@@ -1,7 +1,6 @@
 import 'package:expenses_flutter/components/transaction_item.dart';
 import 'package:expenses_flutter/models/transaction.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
 class TransactionList extends StatelessWidget {
   final List<Transaction> transactions;
@@ -15,7 +14,8 @@ class TransactionList extends StatelessWidget {
     print('build() TransactionList');
     return transactions.isEmpty
         ? _renderEmptyList(context)
-        : _renderList(context);
+        // : _renderList(context);
+    : _renderList(context);
   }
 
   LayoutBuilder _renderEmptyList(BuildContext context) {
@@ -53,7 +53,7 @@ class TransactionList extends StatelessWidget {
       itemCount: transactions.length,
       itemBuilder: (ctx, index) {
         final transaction = transactions[index];
-        return TransactionItem(transaction, onRemove);
+        return TransactionItem(  key: GlobalObjectKey(transaction), transaction, onRemove);
       },
     );
   }
