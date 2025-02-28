@@ -30,7 +30,7 @@ class MyHomePage extends StatefulWidget {
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
   bool _showChart = false;
   final List<Transaction> _transactions = [...fakeTransactions];
 
@@ -41,6 +41,43 @@ class _MyHomePageState extends State<MyHomePage> {
       final bool isAfterLastSevenDays = transaction.date.isAfter(sevenDaysAgo);
       return isAfterLastSevenDays;
     }).toList();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    // precisa registrar esse widget pra observar o state do app
+    super.didChangeAppLifecycleState(state);
+    switch(state) {
+      case AppLifecycleState.inactive:
+        print('inactive');
+        break;
+      case AppLifecycleState.resumed:
+        print('resumed');
+        break;
+      case AppLifecycleState.hidden:
+        print('hidden');
+        break;
+      case AppLifecycleState.paused:
+        print('paused');
+        break;
+      case AppLifecycleState.detached:
+        print('detached');
+        break;
+    }
+  }
+
+
+  @override
+  void dispose() {
+    super.dispose();
+    WidgetsBinding.instance.removeObserver(this);
   }
 
   void _addTransaction(String title, double value, DateTime date) {
