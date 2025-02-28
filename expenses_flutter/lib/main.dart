@@ -164,7 +164,7 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  PreferredSizeWidget _renderAppBar(BuildContext context, bool isLandscape) {
+  AppBar _renderAppBar(BuildContext context, bool isLandscape) {
     final iconListIcon = Platform.isIOS ? CupertinoIcons.refresh : Icons.list;
     final showCartIcon = Platform.isIOS ? CupertinoIcons.refresh : Icons.show_chart;
     return AppBar(
