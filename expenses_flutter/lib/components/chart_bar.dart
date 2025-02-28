@@ -14,6 +14,7 @@ class ChartBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print('build() ChartBar');
     /**
      * builder ajuda a criar layout customizadas
      * da altura e largura usando um contexto local

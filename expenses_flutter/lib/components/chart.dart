@@ -16,7 +16,9 @@ class Chart extends StatelessWidget {
     "Sat": "Sab",
   };
 
-  Chart(this.recentTransaction, {super.key});
+  Chart(this.recentTransaction, {super.key}) {
+    print("Constructor Chart");
+  }
 
   // TODO: Criar uma classe em vez de usar map
   List<Map<String, Object>> get groupedTransactions {
@@ -53,6 +55,7 @@ class Chart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print('build() Chart');
     final weekTotalValue = _weekTotalValue();
 
     return Card(

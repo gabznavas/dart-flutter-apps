@@ -44,6 +44,7 @@ class _TransactionFormState extends State<TransactionForm> {
 
   @override
   Widget build(BuildContext context) {
+    print('build() TransactionForm');
     const String dateBrazilFormat = 'd/M/y';
     final MediaQueryData mediaQuery = MediaQuery.of(context);
     final double keyboardHeight = mediaQuery.viewInsets.bottom;
