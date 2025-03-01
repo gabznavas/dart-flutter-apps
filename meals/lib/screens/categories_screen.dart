@@ -16,15 +16,19 @@ class CategoryScreen extends StatelessWidget {
         backgroundColor: Colors.blue,
         centerTitle: true,
       ),
-      body: GridView(
-        padding: EdgeInsets.all(15),
-        gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-          maxCrossAxisExtent: 200,
-          childAspectRatio: 3 / 2,
-          crossAxisSpacing: 20,
-          mainAxisSpacing: 20,
+      body: Container(
+        color: Color.fromRGBO(255, 254, 229, 1),
+        child: GridView(
+          padding: EdgeInsets.all(15),
+          gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+            maxCrossAxisExtent: 200,
+            childAspectRatio: 3 / 2,
+            crossAxisSpacing: 20,
+            mainAxisSpacing: 20,
+          ),
+          children:
+              categories.map((category) => CategoryItem(category)).toList(),
         ),
-        children: categories.map((category) => CategoryItem(category)).toList(),
       ),
     );
   }

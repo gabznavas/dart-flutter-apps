@@ -14,7 +14,17 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Meals App',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.black),
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: Colors.black,
+          primary: Colors.pink,
+          secondary: Colors.amber,
+        ),
+        fontFamily: 'Raleway',
+        textTheme: ThemeData.light().textTheme.copyWith(
+          titleSmall: TextStyle(fontSize: 14, fontFamily: 'RobotoCondensed'),
+          titleMedium: TextStyle(fontSize: 17, fontFamily: 'RobotoCondensed'),
+          titleLarge: TextStyle(fontSize: 20, fontFamily: 'RobotoCondensed'),
+        ),
       ),
       home: CategoryScreen(),
     );
